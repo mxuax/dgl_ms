@@ -28,7 +28,7 @@ if __name__ == "__main__":
         "backend",
         nargs=1,
         type=str,
-        choices=["pytorch", "tensorflow", "mxnet"],
+        choices=["pytorch", "tensorflow", "mxnet", "mindspore"],
         help="Set default backend",
     )
     args = parser.parse_args()
