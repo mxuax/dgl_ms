@@ -1,3 +1,6 @@
+# dgl/backend/__init__.py
+# 核心修改：已添加 MindSpore 作为新的后端选项。
+
 from __future__ import absolute_import
 
 import importlib
@@ -35,16 +38,16 @@ def load_backend(mod_name):
     #     it already depends on both the backend framework and the DGL C library.
     if mod_name == "pytorch":
         import torch
-
         mod = torch
     elif mod_name == "mxnet":
         import mxnet
-
         mod = mxnet
     elif mod_name == "tensorflow":
         import tensorflow
-
         mod = tensorflow
+    elif mod_name == "mindspore":
+        import mindspore
+        mod = mindspore
     else:
         raise NotImplementedError("Unsupported backend: %s" % mod_name)
 
@@ -107,7 +110,7 @@ def get_preferred_backend():
             config_dict = json.load(config_file)
             backend_name = config_dict.get("backend", "").lower()
 
-    if backend_name in ["tensorflow", "mxnet", "pytorch"]:
+    if backend_name in ["tensorflow", "mxnet", "pytorch", "mindspore"]:
         return backend_name
     else:
         print(
